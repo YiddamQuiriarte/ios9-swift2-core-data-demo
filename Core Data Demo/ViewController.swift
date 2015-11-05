@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         let context: NSManagedObjectContext = appDel.managedObjectContext
         
 //        var newUser = NSEntityDescription.insertNewObjectForEntityForName("Users", inManagedObjectContext: context)
-//        
+//
 //        newUser.setValue("Steve", forKey: "username")
 //        newUser.setValue("rogers123", forKey: "password")
 //
