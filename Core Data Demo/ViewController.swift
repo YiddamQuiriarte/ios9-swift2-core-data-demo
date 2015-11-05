@@ -39,6 +39,9 @@ class ViewController: UIViewController {
         // now we are requesting data from the Users Entity.
         let request = NSFetchRequest(entityName: "Users")
         
+        // if we want to search for something in particular we can use predicates:
+        request.predicate = NSPredicate(format: "username = %@", "Steve") // search for users where username = Steve
+        
         // by default, if we do a request and get some data back it returns false for the actual data. if we want to get data back and see it, then we need to set this as false.
         request.returnsObjectsAsFaults = false
         
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
             if (results.count > 0) {
                 for result in results as! [NSManagedObject] {
                     
+                    // delete the object that we found.
 //                    context.deleteObject(result)
                       do {
                             try context.save() // you have to save after deleting (or anything else) otherwise it won't stick.
@@ -63,6 +67,7 @@ class ViewController: UIViewController {
                     if let password = result.valueForKey("password") as? String { // cast password as String so we can use it.
                         print(password)
                         
+                    // this lets us change a value of the thing we just found and change it to something else.
 //                        result.setValue("something", forKey: "password") // change the password to something else.
                         
 //                        do {
