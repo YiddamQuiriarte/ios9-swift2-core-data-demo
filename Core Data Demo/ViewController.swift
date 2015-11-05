@@ -15,29 +15,35 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // create an app delegate variable
         let appDel: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
+
+        // context is a handler for us to be able to access the database. this allows us to access the CoreData database.
         let context: NSManagedObjectContext = appDel.managedObjectContext
         
-//        var newUser = NSEntityDescription.insertNewObjectForEntityForName("Users", inManagedObjectContext: context)
-//
-//        newUser.setValue("Steve", forKey: "username")
-//        newUser.setValue("rogers123", forKey: "password")
-//
-//        
-//        do {
-//            try context.save()
-//        } catch {
-//            print("There was a problem")
-//        }
+        // we are describing the Entity we want to insert the new user into. We are doing it for Entity Name Users. Then we tell it the context we want to insert it into, which we described previously.
+        let newUser = NSEntityDescription.insertNewObjectForEntityForName("Users", inManagedObjectContext: context)
+
+        // set the values of the attributes for the newUser we are wanting to set.
+        newUser.setValue("Steve", forKey: "username")
+        newUser.setValue("rogers123", forKey: "password")
+
         
+        do {
+            // save the context.
+            try context.save()
+        } catch {
+            print("There was a problem")
+        }
+        
+        // now we are requesting data from the Users Entity.
         let request = NSFetchRequest(entityName: "Users")
         
-//        request.predicate = NSPredicate(format: "username = %@", "Steve") // Search Core Date for this
-        
+        // by default, if we do a request and get some data back it returns false for the actual data. if we want to get data back and see it, then we need to set this as false.
         request.returnsObjectsAsFaults = false
         
         do {
+            // save the results of our fetch request to a variable.
             let results = try context.executeFetchRequest(request)
             print(results)
             if (results.count > 0) {
